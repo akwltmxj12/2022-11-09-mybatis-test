@@ -178,13 +178,13 @@ public class FBoardController {
 		
 		int idflag = 0; 	// 초기값 0주고 if문만 쓴다.  플래그값을 이렇게 사용한다. 보통 1아니면 0 으로 전달한다.
 		
-		if(sid != null) {		// fid는 밑에서 쓰는거지만 여기서는 sid를 뛰우는거라 필요없다.
+		if(sid != null) {		// 로그인이 되어있는 경우 , 로그인 상태유무 알수있다.  // fid는 밑에서 쓰는거지만 여기서는 sid를 뛰우는거라 필요없다.  
 			idflag = 1;	
 			model.addAttribute("boardflag", sid); 
 		}else {
 			idflag = 0;				
 		}
-		model.addAttribute("idflag", idflag); 
+		model.addAttribute("idflag", idflag); 	//1이면		 0이면
 
 		ArrayList<FreeBoardDto> dtos = dao.listDao();
 		

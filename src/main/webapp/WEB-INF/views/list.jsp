@@ -12,11 +12,11 @@
 	int idflag = Integer.parseInt(request.getAttribute("idflag").toString());
 	if(idflag == 1) {	
 	%>	
-		${boardflag } 님 로그인 중
+		${boardflag } 님 로그인 중 <input type="button" value="로그아웃" onclick="javascript:window.location='logout'">
 	<%
 		}else{
 	%>
-		<input type="button" value="로그인으로 돌아가기" onclick="javascript:window.location='list'">
+		<input type="button" value="로그인으로 돌아가기" onclick="javascript:window.location='login'">
 	<%
 		}
 	%>	 
