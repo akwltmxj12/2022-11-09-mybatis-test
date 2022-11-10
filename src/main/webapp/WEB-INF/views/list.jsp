@@ -8,8 +8,20 @@
 <title>글 목록</title>
 </head>
 <body>
+	<%
+	int idflag = Integer.parseInt(request.getAttribute("idflag").toString());
+	if(idflag == 1) {	
+	%>	
+		${boardflag } 님 로그인 중
+	<%
+		}else{
+	%>
+		<input type="button" value="로그인으로 돌아가기" onclick="javascript:window.location='list'">
+	<%
+		}
+	%>	 
 	<h2>글 목록</h2>
-	<hr>
+	<hr>	
 	총 게시글 개수 : ${boardSum }개<br>
 	<table width="1000" border="1" cellspacing="0" cellpadding="0">
 		<tr align="center" height="10">
@@ -20,7 +32,7 @@
 			<td bgcolor="pink">조회수</td>
 			<td bgcolor="pink">등록일</td>
 			<td bgcolor="pink">삭제</td>
-		</tr>
+		</tr>		
 		<c:forEach items="${list }" var="fbdto">		<!-- var는 사용자 정의 이다. 이게있어야 이름을붙혀서 가져오거나 넣을수있다. -->
 		<tr align="center">
 			<td>${fbdto.fnum }</td>	
@@ -31,7 +43,7 @@
 			<td>${fbdto.fdate }</td>	
 			<td><input type="button" value="삭제" onclick="javascript:window.location='delete?fnum=${fbdto.fnum }'"></td>
 		</tr>
-		</c:forEach>
+		</c:forEach>	
 		<tr>
 			<td colspan="7" align="right"><a href="writeForm">글쓰기</a></td>				
 		</tr>

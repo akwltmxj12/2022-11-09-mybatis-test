@@ -165,11 +165,27 @@ public class FBoardController {
 	}
 	
 	@RequestMapping(value = "list")
-	public String list( Model model) {
+	public String list(HttpServletRequest request, Model model) {
+		
 		
 		
 		IDao dao = sqlSession.getMapper(IDao.class);
+			
 		
+		HttpSession session = request.getSession();
+		String sid = (String) session.getAttribute("sessionId"); // 현재 세션에 로그인 되어있는 아이디 가져오기
+		
+		
+		int idflag = 0; 	// 초기값 0주고 if문만 쓴다.  플래그값을 이렇게 사용한다. 보통 1아니면 0 으로 전달한다.
+		
+		if(sid != null) {		// fid는 밑에서 쓰는거지만 여기서는 sid를 뛰우는거라 필요없다.
+			idflag = 1;	
+			model.addAttribute("boardflag", sid); 
+		}else {
+			idflag = 0;				
+		}
+		model.addAttribute("idflag", idflag); 
+
 		ArrayList<FreeBoardDto> dtos = dao.listDao();
 		
 		model.addAttribute("boardSum", dtos.size());
@@ -188,6 +204,20 @@ public class FBoardController {
 		dao.upHit(fnum);
 	
 		FreeBoardDto fbdto = dao.contentView(fnum);
+		
+		HttpSession session = request.getSession(); // 현재 세션 가져오기
+		
+		String sid = (String) session.getAttribute("sessionId"); // 현재 세션에 로그인 되어있는 아이디 가져오기
+		
+		String fid = fbdto.getFid(); //현재 보고 있는 글을 쓴 아이디
+		
+		int idflag = 0; 	// 초기값 0주고 if문만 쓴다.  플래그값을 이렇게 사용한다. 보통 1아니면 0 으로 전달한다.
+		
+		if((sid != null) && (sid.equals(fid))) {
+			idflag = 1;	
+		}
+		
+		model.addAttribute("idflag", idflag); 	// idflag==1이면 수정,삭제 권한 설정
 		
 		model.addAttribute("fbdto", fbdto);
 		

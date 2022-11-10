@@ -15,8 +15,16 @@
 		제 목 : ${fbdto.ftitle }<br><br>
 		내 용 : ${fbdto.fcontent }<br><br>
 		등록일 : ${fbdto.fdate }<br><br>
+		<%
+		int idflag = Integer.parseInt(request.getAttribute("idflag").toString());
+		if(idflag == 1) {
+		%>
 		<input type="button" value="수정" onclick="javascript:window.location='modifyView?fnum=${fbdto.fnum }'">	<!-- 번호를 안넘겨서 에러날수가있다. -->
 		<input type="button" value="삭제" onclick="javascript:window.location='delete?fnum=${fbdto.fnum}'">
+		<%
+			}
+		%>
+		
 		<input type="button" value="취소" onclick="javascript:window.location='list'">	
 </body>
 </html>
