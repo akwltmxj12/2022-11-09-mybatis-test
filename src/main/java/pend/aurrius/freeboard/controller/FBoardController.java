@@ -172,21 +172,69 @@ public class FBoardController {
 		
 		ArrayList<FreeBoardDto> dtos = dao.listDao();
 		
-			
+		model.addAttribute("boardSum", dtos.size());
 		model.addAttribute("list", dtos);
 		
 		return "list";
 	}
 	
-//	@RequestMapping(value = "mview")
-//	public String mview(HttpServletRequest request, Model model) {
-//		
-//		String fnum = request.getParameter("fnum");
-//		IDao dao = sqlSession.getMapper(IDao.class);
-//		FreeBoardDto dto = dao.mviewDao(fnum);
-//		
-//		model.addAttribute("mdto", dto);
-//		
-//		return "mview";
-//	}
+	@RequestMapping(value = "contentView")
+	public String contentView(HttpServletRequest request, Model model) {
+		
+		String fnum = request.getParameter("fnum");
+				
+		IDao dao = sqlSession.getMapper(IDao.class);
+		
+		dao.upHit(fnum);
+	
+		FreeBoardDto fbdto = dao.contentView(fnum);
+		
+		model.addAttribute("fbdto", fbdto);
+		
+		return "contentView";	
+	}
+
+	
+	@RequestMapping(value = "delete")
+	public String delete(HttpServletRequest request) {
+		
+		IDao dao = sqlSession.getMapper(IDao.class);
+		
+		String fnum = request.getParameter("fnum");
+		
+		dao.deleteDao(fnum);
+		
+		return "redirect:list";
+	}
+	
+	@RequestMapping(value = "modifyView")
+	public String modifyView(HttpServletRequest request, Model model) {
+		
+		IDao dao = sqlSession.getMapper(IDao.class);
+		String fnum = request.getParameter("fnum");
+		FreeBoardDto fbdto = dao.contentView(fnum);
+		
+	
+		model.addAttribute("fbdto", fbdto);
+		
+		
+		return "modifyView";
+	}
+	
+	@RequestMapping(value = "modify")
+	public String modify(HttpServletRequest request) {
+		
+		IDao dao = sqlSession.getMapper(IDao.class);
+		
+		String fnum = request.getParameter("fnum");
+		String fname = request.getParameter("fname");
+		String ftitle = request.getParameter("ftitle");
+		String fcontent = request.getParameter("fcontent");
+		
+		dao.modifyDao(fnum, fname, ftitle, fcontent);
+		
+		return "redirect:list";
+	}
+	
 }
+

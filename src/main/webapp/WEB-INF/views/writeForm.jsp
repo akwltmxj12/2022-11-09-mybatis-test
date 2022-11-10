@@ -15,6 +15,7 @@
 		제 목 : <input type="text" size="60" name="ftitle"><br><br>
 		내 용 : <textarea rows="10" cols="45" name="fcontent"></textarea><br>
 		<input type="submit" value="글 입력">&nbsp;&nbsp;<input type="reset" value="취소">		
+		<input type="button" value="목록" onclick="javascript:window.location='list'">
 		</form>
 </body>
 </html>

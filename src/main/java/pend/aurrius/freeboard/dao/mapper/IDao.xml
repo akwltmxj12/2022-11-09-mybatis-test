@@ -29,14 +29,27 @@
 		VALUES(freeboard_seq.nextval, #{param1}, #{param2}, #{param3}, #{param4}, 0)
 	</insert>
 	
-	<select id="listDao" resultType="pend.aurrius.freeboard.dto.FreeBoardDto">
-		SELECT * FROM freeboard ORDER BY fnum DESC
+	<select id="listDao" resultType="pend.aurrius.freeboard.dto.FreeBoardDto">		<!-- arrlist에 들어갈 원소 한개의 위치를 적어야한다. -->
+		SELECT * FROM freeboard ORDER BY fnum DESC									<!-- 기본값이 오름차순으로 되있어서 최근글이 밑으로 내려간다. 그래서 DESC를 넣어서 최신글을 맨위로 올라오게 적어준다. -->
 	</select>
 	
-	<select id="mviewDao" resultType="pend.aurrius.freeboard.dto.FreeBoardDto">
+	<select id="contentView" resultType="pend.aurrius.freeboard.dto.FreeBoardDto">
 		SELECT * FROM freeboard WHERE fnum=#{param1}
 	</select>
 	
+	<delete id="deleteDao">
+		DELETE FROM freeboard WHERE fnum=#{param1}
+	</delete>
+	
+	<update id="modifyDao">
+		UPDATE freeboard SET fname=#{param2}, ftitle=#{param3}, fcontent=#{param4} WHERE fnum=#{param1}
+	</update>
+
+	<update id="upHit">
+		UPDATE freeboard SET fhit=fhit+1 WHERE fnum=#{param1}	<!-- fhit+1만 쓴다면 모든 조회수가 1씩증가한다. 그래서 조건으로 where fnum을 넣는다. -->
+	</update>
+
+
 </mapper>   
    
    
