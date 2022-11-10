@@ -1,6 +1,11 @@
 package pend.aurrius.freeboard.dao.mapper;
 
+import java.util.ArrayList;
+
+import pend.aurrius.freeboard.dto.FreeBoardDto;
 import pend.aurrius.freeboard.dto.MemberDto;
+
+
 
 public interface IDao {
 	// member 관련 메서드
@@ -11,6 +16,8 @@ public interface IDao {
 	
 	//board 관련 메서드
 	public void writeDao(String mid, String mname, String ftitle, String fcontent);	// 게시판에 글쓰기
+	//public FreeBoardDto mviewDao(String fnum);
+	public ArrayList<FreeBoardDto> listDao();
 	
 	
 }

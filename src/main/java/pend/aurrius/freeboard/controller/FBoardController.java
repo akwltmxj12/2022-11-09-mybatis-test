@@ -1,5 +1,7 @@
 package pend.aurrius.freeboard.controller;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -11,7 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import pend.aurrius.freeboard.dao.mapper.IDao;
+import pend.aurrius.freeboard.dto.FreeBoardDto;
 import pend.aurrius.freeboard.dto.MemberDto;
+
+
 
 @Controller
 public class FBoardController {
@@ -159,4 +164,29 @@ public class FBoardController {
 		return "logout";
 	}
 	
+	@RequestMapping(value = "list")
+	public String list( Model model) {
+		
+		
+		IDao dao = sqlSession.getMapper(IDao.class);
+		
+		ArrayList<FreeBoardDto> dtos = dao.listDao();
+		
+			
+		model.addAttribute("list", dtos);
+		
+		return "list";
+	}
+	
+//	@RequestMapping(value = "mview")
+//	public String mview(HttpServletRequest request, Model model) {
+//		
+//		String fnum = request.getParameter("fnum");
+//		IDao dao = sqlSession.getMapper(IDao.class);
+//		FreeBoardDto dto = dao.mviewDao(fnum);
+//		
+//		model.addAttribute("mdto", dto);
+//		
+//		return "mview";
+//	}
 }
